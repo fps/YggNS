@@ -8,6 +8,8 @@ import base64
 import argparse
 import logging
 
+import nacl
+
 # Installed Modules
 from IPy import IP
 import dns.message
@@ -18,6 +20,7 @@ args_parser.add_argument('-a', dest='address', type=IP, default=IP('::1'), help=
 args_parser.add_argument('-p', dest='port', type=int, default=53535, help='Local DNS-proxy UDP port. Default is 53535;')
 args_parser.add_argument('-b', dest='bypass_ns', type=IP, help='Bypass DNS server for non-YggNS queries. Default is none and its recomended. If bypass NS is not set then non-YggNS queries will be responded with empty response. Best practice is to forward .ygg requests by your local or LAN resolver, like dnsmasq or dnscrypt, to YggNS;')
 args_parser.add_argument('-t', dest='query_timeout', type=int, default=5, help='Query timeout in seconds. Default is 5 seconds;')
+args_parser.add_argument('-k', dest='private_key', type=str, help='Private key used for hostname resolution')
 args_parser.add_argument('--log', dest='logfile', type=str, help='Output log to file. Requests and responses.')
 args = args_parser.parse_args()
 args.address = str(args.address)
